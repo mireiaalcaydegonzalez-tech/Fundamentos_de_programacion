@@ -14,7 +14,7 @@ elif 5.0 <= Media_final <= 6.9:
     print("Aprobado")
 elif 7.0 <= Media_final <= 8.9:
     print("Notable")
-elif 9.0 <= Media_final <=10:
+elif 9.0 <= Media_final <= 10:
     print("Sobresaliente")
 else:
     print("Error")

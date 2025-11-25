@@ -8,7 +8,7 @@ while True:
     nombre = input("Introduce tu nombre ( o 'salir' para terminar): ")
     if nombre.lower() == "salir":
         break
-    dni = input("introduce tu DNI: ")
+    dni = input("Introduce tu DNI: ")
     nombres.append(nombre)
     dnis.append(dni)
 

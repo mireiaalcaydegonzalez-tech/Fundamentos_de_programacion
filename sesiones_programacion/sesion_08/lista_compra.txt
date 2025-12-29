@@ -1,0 +1,11 @@
+=============================================
+           LISTA DE LA COMPRA
+=============================================
+
+1. Queso                          Cantidad: 2
+2. aceite                         Cantidad: 1
+3. Lechuga                        Cantidad: 10
+4. tomates                        Cantidad: 3
+5. macarrones                     Cantidad: 3
+
+=============================================

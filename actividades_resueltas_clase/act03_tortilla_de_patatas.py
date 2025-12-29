@@ -20,6 +20,6 @@ if tienes_sal == "s":
 
 # Tienes que ir al super
 if hay_patatas and hay_huevos and hay_aceite and hay_sal:
-    print("Puedo hacer la tortilla de patatas")
+    (print("Puedo hacer la tortilla de patatas"))
 else :
     print("Tengo que ir al super")

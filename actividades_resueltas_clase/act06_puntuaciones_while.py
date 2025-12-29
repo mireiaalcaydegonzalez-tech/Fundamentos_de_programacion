@@ -29,4 +29,4 @@ while True:
 for jugador in range(len(jugadores_basket)):
     anotacion_total_jugador = (canastas_1_punto[jugador]*1 + canastas_2_punto[jugador]*2 +
                                    canastas_3_punto[jugador]*3)
-    print(f"El jugador {jugadores_basket[jugador]} ha anotado {anotacion_total_jugador}")
+    print(f"El jugador {jugadores_basket[jugador]} ha anotado {anotacion_total_jugador} puntos")

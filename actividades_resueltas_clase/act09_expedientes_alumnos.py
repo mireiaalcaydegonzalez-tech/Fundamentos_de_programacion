@@ -53,7 +53,7 @@ for alumno in alumnos:
           f" Arte: {alumno['calif_arte']}")
 
 
-# Cositas a corregir ahora mismo: si da error lo incluy en ela lista
+# Cositas a corregir ahora mismo: si da error lo incluye en la lista
 
 
 

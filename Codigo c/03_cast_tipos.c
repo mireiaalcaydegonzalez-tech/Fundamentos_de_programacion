@@ -17,7 +17,7 @@ int main() {
 
     // Conversion de float a int
     int resultado_entero = (int)flotante + entero;
-    printf("Conversion de float a int: %d\n", resultado_entero);
+    p rintf("Conversion de float a int: %d\n", resultado_entero);
 
     // Conversion de char a int
     int ascii_valor = (int)caracter;

@@ -10,25 +10,49 @@
 /* ========== FUNCIONES ========== */
 
 /**
+ * Funcion: limpiar_buffer
+ * Limpia el buffer de entrada evitando errores por caracteres residuales
+ */
+void limpiar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+/**
  * Funcion: tirada_especial
  * Realiza la tirada especial cuando sale un 6
- * Aplica multiplicador o divisor (2 o 3) a los puntos acumulados
+ * El usuario participa presionando ENTER para revelar multiplicador/divisor y el valor (2 o 3)
  * Parametros: puntos_acumulados - puntos que lleva el jugador
  * Retorna: los puntos modificados tras aplicar multiplicador/divisor
  */
-int tirada_especial(int puntos_acumulados) {
+int tirada_especial(int puntos_acumulados, int es_jugador) {
     // Tirar dado multiplicador/divisor: 0=divisor, 1=multiplicador
     int operacion = rand() % 2;
     // Tirar moneda: 2 o 3
     int valor = (rand() % 2) + 2;
     
+    if (es_jugador) {
+        printf("   --> Presiona ENTER para revelar si es MULTIPLICADOR o DIVISOR...");
+        limpiar_buffer();
+    }
+    
     printf("   --> Tirada especial: ");
     
     if (operacion == 1) {
-        printf("MULTIPLICADOR x%d\n", valor);
+        printf("MULTIPLICADOR\n");
+        if (es_jugador) {
+            printf("   --> Presiona ENTER para revelar el valor (2 o 3)...");
+            limpiar_buffer();
+        }
+        printf("   --> El multiplicador es: x%d\n", valor);
         puntos_acumulados *= valor;
     } else {
-        printf("DIVISOR /%d\n", valor);
+        printf("DIVISOR\n");
+        if (es_jugador) {
+            printf("   --> Presiona ENTER para revelar el valor (2 o 3)...");
+            limpiar_buffer();
+        }
+        printf("   --> El divisor es: /%d\n", valor);
         puntos_acumulados /= valor; // Division entera (redondeo automatico)
     }
     
@@ -41,10 +65,11 @@ int tirada_especial(int puntos_acumulados) {
  * Parametros: puntos_maquina - puntos actuales de la maquina (por referencia)
  * Retorna: puntos que se restan a la maquina en este turno
  */
-int turno_jugador(int puntos_maquina) {
+int turno_jugador(int *puntos_jugador, int *puntos_maquina) {
     int puntos_acumulados = 0;
     int continuar = 1;
-    char enter;
+    int entrada_valida;
+    int opcion;
     
     printf("\n========== TU TURNO ==========\n");
     
@@ -53,7 +78,7 @@ int turno_jugador(int puntos_maquina) {
         printf("Presiona ENTER para tirar el dado...");
         
         // Limpiar buffer y esperar ENTER
-        while (getchar() != '\n');
+        limpiar_buffer();
         
         // Tirar dado de 6 caras
         int dado = (rand() % 6) + 1;
@@ -70,27 +95,79 @@ int turno_jugador(int puntos_maquina) {
             puntos_acumulados += dado;
             printf("   Sumas %d puntos. Total acumulado: %d\n", dado, puntos_acumulados);
             
-            // Preguntar si quiere continuar
-            printf("\n¿Quieres seguir tirando? (1=Si, 0=Plantarse): ");
-            scanf("%d", &continuar);
-            
-            if (continuar == 0) {
-                printf("   Te plantas con %d puntos acumulados.\n", puntos_acumulados);
+            // Preguntar si quiere continuar con validacion de entrada
+            entrada_valida = 0;
+            while (!entrada_valida) {
+                printf("\n¿Quieres seguir tirando?\n");
+                printf("   1 = Si, continuar tirando\n");
+                printf("   0 = Plantarse y terminar turno\n");
+                printf("   2 = Salir del juego\n");
+                printf("Elige una opcion: ");
+                if (scanf("%d", &opcion) == 1) {
+                    if (opcion == 0 || opcion == 1 || opcion == 2) {
+                        entrada_valida = 1;
+                    } else {
+                        printf("   ERROR: Ingresa solo 0, 1 o 2\n");
+                        limpiar_buffer();
+                    }
+                } else {
+                    printf("   ERROR: Debes ingresar un numero\n");
+                    limpiar_buffer();
+                }
             }
+            
+            if (opcion == 0) {
+                printf("   Te plantas con %d puntos acumulados.\n", puntos_acumulados);
+                continuar = 0;
+            } else if (opcion == 2) {
+                printf("   ¡Has decidido salir del juego!\n");
+                // Restar los puntos acumulados antes de salir
+                *puntos_maquina -= puntos_acumulados;
+                if (*puntos_maquina < 0) *puntos_maquina = 0;
+                *puntos_jugador = -1; // Marca para salida sin perder
+                continuar = 0;
+            }
+            // Si opcion == 1, continua el bucle
             
         } else if (dado == 6) {
             // Tirada especial
             printf("   ¡TIRADA ESPECIAL!\n");
-            puntos_acumulados = tirada_especial(puntos_acumulados);
+            puntos_acumulados = tirada_especial(puntos_acumulados, 1); // 1 = es jugador
             printf("   Puntos tras tirada especial: %d\n", puntos_acumulados);
             
-            // Preguntar si quiere continuar
-            printf("\n¿Quieres seguir tirando? (1=Si, 0=Plantarse): ");
-            scanf("%d", &continuar);
-            
-            if (continuar == 0) {
-                printf("   Te plantas con %d puntos acumulados.\n", puntos_acumulados);
+            // Preguntar si quiere continuar con validacion de entrada
+            entrada_valida = 0;
+            while (!entrada_valida) {
+                printf("\n¿Quieres seguir tirando?\n");
+                printf("   1 = Si, continuar tirando\n");
+                printf("   0 = Plantarse y terminar turno\n");
+                printf("   2 = Salir del juego\n");
+                printf("Elige una opcion: ");
+                if (scanf("%d", &opcion) == 1) {
+                    if (opcion == 0 || opcion == 1 || opcion == 2) {
+                        entrada_valida = 1;
+                    } else {
+                        printf("   ERROR: Ingresa solo 0, 1 o 2\n");
+                        limpiar_buffer();
+                    }
+                } else {
+                    printf("   ERROR: Debes ingresar un numero\n");
+                    limpiar_buffer();
+                }
             }
+            
+            if (opcion == 0) {
+                printf("   Te plantas con %d puntos acumulados.\n", puntos_acumulados);
+                continuar = 0;
+            } else if (opcion == 2) {
+                printf("   ¡Has decidido salir del juego!\n");
+                // Restar los puntos acumulados antes de salir
+                *puntos_maquina -= puntos_acumulados;
+                if (*puntos_maquina < 0) *puntos_maquina = 0;
+                *puntos_jugador = -1; // Marca para salida sin perder
+                continuar = 0;
+            }
+            // Si opcion == 1, continua el bucle
         }
     }
     
@@ -100,18 +177,18 @@ int turno_jugador(int puntos_maquina) {
 /**
  * Funcion: turno_maquina
  * Gestiona el turno completo de la maquina
- * Estrategia: la maquina tira hasta conseguir 15 puntos o mas
+ * Estrategia: la maquina decide aleatoriamente si continuar o plantarse
  * Parametros: ninguno
  * Retorna: puntos que se restan al jugador en este turno
  */
 int turno_maquina() {
     int puntos_acumulados = 0;
     int continuar = 1;
+    int decision; // 0 = plantarse, 1 = continuar
     
     printf("\n========== TURNO DE LA MAQUINA ==========\n");
     
-    // Estrategia: la maquina tira hasta conseguir al menos 15 puntos
-    while (continuar && puntos_acumulados < 15) {
+    while (continuar) {
         printf("\nLa maquina tira el dado...\n");
         
         // Tirar dado de 6 caras
@@ -129,17 +206,29 @@ int turno_maquina() {
             puntos_acumulados += dado;
             printf("   La maquina suma %d puntos. Total acumulado: %d\n", dado, puntos_acumulados);
             
+            // La maquina decide aleatoriamente si continua o se planta
+            decision = rand() % 2; // 0 o 1
+            if (decision == 0) {
+                printf("   La maquina decide plantarse con %d puntos acumulados.\n", puntos_acumulados);
+                continuar = 0;
+            } else {
+                printf("   La maquina decide continuar tirando.\n");
+            }
+            
         } else if (dado == 6) {
             // Tirada especial
             printf("   ¡TIRADA ESPECIAL DE LA MAQUINA!\n");
-            puntos_acumulados = tirada_especial(puntos_acumulados);
+            puntos_acumulados = tirada_especial(puntos_acumulados, 0); // 0 = es maquina
             printf("   Puntos de la maquina tras tirada especial: %d\n", puntos_acumulados);
-        }
-        
-        // Decidir si continua (estrategia: plantarse con 15 o mas puntos)
-        if (puntos_acumulados >= 15) {
-            printf("   La maquina decide plantarse con %d puntos.\n", puntos_acumulados);
-            continuar = 0;
+            
+            // La maquina decide aleatoriamente si continua o se planta
+            decision = rand() % 2; // 0 o 1
+            if (decision == 0) {
+                printf("   La maquina decide plantarse con %d puntos acumulados.\n", puntos_acumulados);
+                continuar = 0;
+            } else {
+                printf("   La maquina decide continuar tirando.\n");
+            }
         }
     }
     
@@ -173,7 +262,7 @@ int main(void) {
     printf("=============================================\n");
     
     printf("\nPresiona ENTER para comenzar...");
-    getchar();
+    limpiar_buffer();
     
     // Bucle principal del juego
     while (puntos_jugador > 0 && puntos_maquina > 0) {
@@ -184,7 +273,7 @@ int main(void) {
         printf("+++++++++++++++++++++++++++++++++++++++++++\n");
         
         // TURNO DEL JUGADOR
-        int danio_jugador = turno_jugador(puntos_maquina);
+        int danio_jugador = turno_jugador(&puntos_jugador, &puntos_maquina);
         
         if (danio_jugador > 0) {
             puntos_maquina -= danio_jugador;
@@ -198,8 +287,10 @@ int main(void) {
             break;
         }
         
-        printf("\nPresiona ENTER para el turno de la maquina...");
-        while (getchar() != '\n');
+        // Verificar si el jugador decidio salir
+        if (puntos_jugador <= 0) {
+            break;
+        }
         
         // TURNO DE LA MAQUINA
         int danio_maquina = turno_maquina();
@@ -210,6 +301,15 @@ int main(void) {
             printf("\n>>> La maquina te resta %d puntos! <<<\n", danio_maquina);
             printf("    Tus puntos: %d\n", puntos_jugador);
         }
+        
+        // Verificar si la maquina ha ganado
+        if (puntos_jugador <= 0) {
+            break;
+        }
+        
+        // Esperar ENTER antes del siguiente turno del jugador
+        printf("\nPresiona ENTER para tu siguiente turno...");
+        limpiar_buffer();
     }
     
     // MOSTRAR RESULTADO FINAL
@@ -220,7 +320,9 @@ int main(void) {
     printf("  JUGADOR: %d puntos | MAQUINA: %d puntos\n", puntos_jugador, puntos_maquina);
     printf("---------------------------------------------\n");
     
-    if (puntos_jugador > 0) {
+    if (puntos_jugador > 0 && puntos_maquina > 0) {
+        printf("         ¡¡¡ SALISTE DEL JUEGO !!!\n");
+    } else if (puntos_jugador > 0) {
         printf("         ¡¡¡ GANASTE !!!\n");
     } else {
         printf("         PERDISTE - Gana la maquina\n");

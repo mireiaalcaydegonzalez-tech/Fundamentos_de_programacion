@@ -7,7 +7,6 @@ int main(void) {
     float flotante;
     char caracter;
     char cadena[50];
-
     // Solicitar y leer un numero entero
     printf("Introduce un numero entero: ");
     scanf("%d", &entero);

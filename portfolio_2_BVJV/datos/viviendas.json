@@ -1,0 +1,27 @@
+[
+  {
+    "tipo": "Alquiler",
+    "id": 1,
+    "direccion": "Calle Principal 123, Valencia",
+    "precio": 200000,
+    "metros": 85,
+    "habitaciones": 3,
+    "renta_mensual": 850,
+    "disponibilidad": "Disponible",
+    "fecha_registro": "03/02/2026",
+    "notas": ""
+  },
+  {
+    "tipo": "Compra",
+    "id": 2,
+    "direccion": "Avenida del Futuro 456, Valencia",
+    "precio": 350000,
+    "metros": 120,
+    "habitaciones": 4,
+    "interes_anual": 3.5,
+    "entrada": 0,
+    "plazo_anios": 30,
+    "fecha_registro": "03/02/2026",
+    "notas": ""
+  }
+]

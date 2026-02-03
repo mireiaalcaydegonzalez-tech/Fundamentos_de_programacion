@@ -1,0 +1,142 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║         		 ✅ GESTOR DE BÚSQUEDA DE VIVIENDA            ║
+║                    Para Jóvenes en Valencia - Python TkInter               ║
+║                                                                            ║
+║                         Portfolio 2. BVJV                                 ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+🎯 DESCRIPCIÓN DEL PROYECTO
+═════════════════════════════════════════════════════════════════════════════
+
+Aplicación innovadora para ayudar a jóvenes en Valencia a gestionar su búsqueda
+de vivienda, permitiendo registrar, comparar y analizar opciones de alquiler
+versus compra con cálculo automático de hipotecas.
+
+
+🎯 TEMA INNOVADOR
+═════════════════════════════════════════════════════════════════════════════
+
+El proyecto aborda el problema REAL de la crisis de vivienda en Valencia,
+ofreciendo a los jóvenes una herramienta práctica para:
+
+✓ Comparar opciones de alquiler vs compra
+✓ Calcular automáticamente cuotas de hipotecas
+✓ Analizar datos visualmente con gráficas
+✓ Tomar decisiones informadas sobre vivienda
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+📊 CARACTERÍSTICAS PRINCIPALES
+═════════════════════════════════════════════════════════════════════════════
+
+✓ 4 pestañas funcionales:
+  • 📋 Alquileres - Gestión de viviendas en alquiler
+  • 🏠 Compras/Hipoteca - Gestión de compras con cálculo automático
+  • ⚖️ Comparativa - Visualización lado a lado
+  • 📊 Reportes - Análisis gráfico con matplotlib
+
+✓ Programación Orientada a Objetos:
+  • Clase padre: Vivienda
+  • Clases hijas: Alquiler y Compra
+  • Herencia, polimorfismo y métodos abstractos
+
+✓ Persistencia de datos:
+  • Almacenamiento automático en JSON
+  • Carga al iniciar la aplicación
+  • 5 viviendas de ejemplo incluidas
+
+✓ Análisis visual:
+  • Gráfica de distribución (Pastel)
+  • Precio por m² (Barras)
+  • Costes mensuales (Barras)
+  • Distribución por habitaciones (Barras)
+
+
+🚀 CÓMO EJECUTAR
+═════════════════════════════════════════════════════════════════════════════
+
+1. Instala las dependencias:
+   pip3 install -r requirements.txt
+
+2. Ejecuta la aplicación:
+   python3 main.py
+
+3. ¡La interfaz gráfica se abrirá automáticamente!
+
+
+📁 ESTRUCTURA DEL PROYECTO
+═════════════════════════════════════════════════════════════════════════════
+
+Portfolio 2. BVJV/
+├── main.py                         ← PUNTO DE ENTRADA
+├── vivienda.py                     ← MODELOS (Padre + 2 Hijas)
+├── gestor_datos.py                 ← PERSISTENCIA EN JSON
+├── tab_alquiler.py                 ← INTERFAZ ALQUILERES
+├── tab_compra.py                   ← INTERFAZ COMPRAS
+├── tab_comparativa.py              ← INTERFAZ COMPARATIVA
+├── tab_reportes.py                 ← INTERFAZ REPORTES
+├── test.py                         ← PRUEBAS UNITARIAS
+├── datos/
+│   └── viviendas.json              ← BASE DE DATOS
+├── README.md                       ← DOCUMENTACIÓN PRINCIPAL
+├── DOCUMENTACION_TECNICA.md        ← DETALLES TÉCNICOS
+├── GUIA_INSTALACION.py             ← GUÍA INTERACTIVA
+├── INSTRUCCIONES_FINALES.py        ← RESUMEN EJECUTABLE
+└── requirements.txt                ← DEPENDENCIAS
+
+
+💡 PRUEBAS
+═════════════════════════════════════════════════════════════════════════════
+
+Para verificar que todo funciona correctamente sin interfaz gráfica:
+
+   python3 test.py
+
+Resultado esperado: ✅ TODAS LAS PRUEBAS PASARON CORRECTAMENTE
+
+
+📚 DOCUMENTACIÓN
+═════════════════════════════════════════════════════════════════════════════
+
+• README.md
+  └─ Descripción general, requisitos, características y uso
+
+• DOCUMENTACION_TECNICA.md
+  └─ Arquitectura MVC, módulos, modelos de datos y flujo
+
+• GUIA_INSTALACION.py
+  └─ Guía paso a paso e información de requisitos
+
+• INSTRUCCIONES_FINALES.py
+  └─ Resumen ejecutable del proyecto
+
+
+🎓 TECNOLOGÍAS UTILIZADAS
+═════════════════════════════════════════════════════════════════════════════
+
+• Python 3.7+        → Lenguaje principal
+• TkInter           → Interfaz gráfica
+• JSON              → Persistencia de datos
+• Matplotlib        → Gráficas estadísticas
+• ABC               → Programación orientada a objetos avanzada
+
+
+📊 ESTADÍSTICAS
+═════════════════════════════════════════════════════════════════════════════
+
+• Líneas de código:        ~1100
+• Archivos Python:         7 principales + 3 de apoyo
+• Clases definidas:        7 (1 padre, 2 hijas, 4 interfaces)
+• Métodos totales:         20+
+• Propiedades totales:     30+
+• TreeViews:               8
+• Tipos de gráficas:       4
+• Líneas de documentación: 300+
+
+
+
+                     

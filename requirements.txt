@@ -1,0 +1,9 @@
+"""
+Archivo requirements.txt - Dependencias del proyecto.
+Instalar con: pip install -r requirements.txt
+"""
+
+# Aunque tkinter viene incluido con Python,
+# matplotlib es la única dependencia externa requerida
+
+matplotlib>=3.5.0
